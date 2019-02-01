@@ -1,5 +1,6 @@
 package no.hvl.dat110.rpc;
 
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 public class RPCUtils {
@@ -7,26 +8,29 @@ public class RPCUtils {
 	public static byte[] marshallString(byte rpcid, String str) {
 
 		byte[] encoded;
-
+		
 		// TODO: marshall RPC identifier and string into byte array
-
-		if (true) {
-			throw new RuntimeException("not yet implemented");
+		encoded=new byte[str.getBytes().length+1];
+		encoded[0]=rpcid;
+		byte[] bStr=str.getBytes();
+		
+		for(int i=1; i<str.getBytes().length; i++) {
+			encoded[i]=bStr[i-1];
 		}
-
+		
 		return encoded;
 	}
 
 	public static String unmarshallString(byte[] data) {
 
 		String decoded;
-
-		decoded = data.toString();
-
-		if (true) {
-			throw new RuntimeException("not yet implemented");
+		
+		byte[] bStr=new byte[data.length-1];
+		for(int i=0;i<bStr.length;i++) {
+			bStr[i]=data[i+1];
 		}
-
+		decoded=new String(bStr);
+		
 		return decoded;
 	}
 
@@ -34,11 +38,8 @@ public class RPCUtils {
 
 		byte[] encoded;
 
-		// TODO: marshall RPC identifier in case of void type
-
-		if (true) {
-			throw new RuntimeException("not yet implemented");
-		}
+		encoded=new byte[1];
+		encoded[0]=rpcid;
 
 		return encoded;
 
@@ -47,6 +48,7 @@ public class RPCUtils {
 	public static void unmarshallVoid(byte[] data) {
 
 		// TODO: unmarshall void type
+		//DONE?
 	}
 
 	public static byte[] marshallBoolean(byte rpcid, boolean b) {
@@ -73,11 +75,13 @@ public class RPCUtils {
 	public static byte[] marshallInteger(byte rpcid, int x) {
 
 		byte[] encoded;
-
+		
+		byte[] bX = ByteBuffer.allocate(4).putInt(x).array();
 		// TODO: marshall RPC identifier and string into byte array
-
-		if (true) {
-			throw new RuntimeException("not yet implemented");
+		encoded=new byte[bX.length+1];
+		encoded[0]=rpcid;
+		for(int i=1;i<encoded.length;i++) {
+			encoded[i]=bX[i-1];
 		}
 
 		return encoded;
@@ -87,12 +91,12 @@ public class RPCUtils {
 
 		int decoded;
 
-		// TODO: unmarshall integer contained in data
-
-		if (true) {
-			throw new RuntimeException("not yet implemented");
+		byte[] bX=new byte[data.length-1];
+		
+		for(int i=0;i<bX.length;i++) {
+			bX[i]=data[i+1];
 		}
-
+		decoded = ByteBuffer.wrap(bX).getInt();
 		return decoded;
 
 	}
