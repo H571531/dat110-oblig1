@@ -24,15 +24,13 @@ public class Message {
 		
 		// TODO
 		// encapulate/encode the payload of the message
-		encoded = new byte[128];
+		encoded = new byte[payload.length+1];
 		encoded[0]=(byte)payload.length;
 		for(int i=1; i<payload.length;i++) {
 			encoded[i]=payload[i-1];
 		}		
 		
-		if (true) {
-		   throw new RuntimeException("not yet implemented");
-		}
+		
 		
 		return encoded;
 		
@@ -45,7 +43,7 @@ public class Message {
 		for(int i=1; i<received[0];i++) {
 			payload[i-1]=received[i];
 		}
-	   //throw new RuntimeException("not yet implemented");
+	   
 		
 	}
 }
