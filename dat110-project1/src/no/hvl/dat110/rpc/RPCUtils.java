@@ -1,5 +1,6 @@
 package no.hvl.dat110.rpc;
 
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 public class RPCUtils {
@@ -10,9 +11,12 @@ public class RPCUtils {
 
 		// TODO: marshall RPC identifier and string into byte array
 
-		if (true) {
-			throw new RuntimeException("not yet implemented");
-		}
+		byte[] stringByteArray = str.getBytes();
+		encoded = new byte[stringByteArray.length + 1];
+		encoded[0] = rpcid;
+		
+		System.arraycopy(stringByteArray, 0, encoded, 1, str.length());
+		
 
 		return encoded;
 	}
@@ -23,9 +27,7 @@ public class RPCUtils {
 
 		// TODO: unmarshall String contained in data into decoded
 
-		if (true) {
-			throw new RuntimeException("not yet implemented");
-		}
+		decoded = new String(Arrays.copyOfRange(data, 1, data.length));
 
 		return decoded;
 	}
@@ -36,9 +38,8 @@ public class RPCUtils {
 
 		// TODO: marshall RPC identifier in case of void type
 
-		if (true) {
-			throw new RuntimeException("not yet implemented");
-		}
+		encoded = new byte[1];
+		encoded[0] = rpcid;
 
 		return encoded;
 
@@ -76,10 +77,15 @@ public class RPCUtils {
 
 		// TODO: marshall RPC identifier and string into byte array
 
-		if (true) {
-			throw new RuntimeException("not yet implemented");
-		}
+		
+		encoded = new byte[5];
+		encoded[0] = rpcid;
+		byte[] intToByteArray = ByteBuffer.allocate(4).putInt(x).array();
+		
+				
+		System.arraycopy(intToByteArray, 0, encoded, 1, 4);
 
+		
 		return encoded;
 	}
 
@@ -89,9 +95,7 @@ public class RPCUtils {
 
 		// TODO: unmarshall integer contained in data
 
-		if (true) {
-			throw new RuntimeException("not yet implemented");
-		}
+		decoded = ByteBuffer.wrap(Arrays.copyOfRange(data, 1, 5)).getInt();
 
 		return decoded;
 
