@@ -32,22 +32,37 @@ public class Connection {
 
 		// TODO
 		// encapsulate the data contained in the message and write to the output stream
-
-		throw new RuntimeException("not yet implemented");
-
+		try {
+			outStream.write(message.encapsulate());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public Message receive() {
 
 		Message message;
 		byte[] recvbuf;
-
+		
 		// TODO
 		// read a segment from the input stream and decapsulate into message
-
-		if (true) {
-			throw new RuntimeException("not yet implemented");
+		recvbuf=new byte[128];
+		try {
+			
+			for(int i=0; i<inStream.readInt();i++) {
+				recvbuf[i]=inStream.readByte();
+						
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		message=new Message(recvbuf);
+	/*	if (true) {
+			throw new RuntimeException("not yet implemented");
+		}*/
 
 		return message;
 

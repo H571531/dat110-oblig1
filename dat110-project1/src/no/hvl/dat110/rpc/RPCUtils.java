@@ -21,7 +21,7 @@ public class RPCUtils {
 
 		String decoded;
 
-		// TODO: unmarshall String contained in data into decoded
+		decoded = data.toString();
 
 		if (true) {
 			throw new RuntimeException("not yet implemented");
