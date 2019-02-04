@@ -16,6 +16,5 @@ public class Display extends RPCStub {
 		
 		RPCUtils.unmarshallVoid(tilbake);
 
-		throw new RuntimeException("not yet implemented");
 	}
 }
