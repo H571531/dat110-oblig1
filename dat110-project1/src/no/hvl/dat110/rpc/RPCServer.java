@@ -32,26 +32,28 @@ public class RPCServer {
 		
 		System.out.println("RPC SERVER ACCEPTED");
 		
-		boolean stop = false;
+		boolean avsluttet = false;
 		
-		while (!stop) {
+		while (!avsluttet) {
 	    
 		   int rpcid;
+
 		   
-		   // TODO
-		   // - receive message containing RPC request
-		   // - find the identifier for the RPC methods to invoke
-		   // - lookup the methods to be invoked
-		   // - invoke the method
-		   // - send back message containing RPC reply
-			
-		   if (true) {
-		     throw new RuntimeException("not yet implemented");
-		   }
-		   
+		// - receive message containing RPC request
+		   byte[] mottatt = connection.receive().getData();
+		// - find the identifier for the RPC methods to invoke
+		   rpcid = mottatt[0];
+		// - lookup the methods to be invoked
 		   if (rpcid == RPCCommon.RPIDSTOP) {
-			   stop = true;
+			   avsluttet = true;
 		   }
+		  RPCImpl kjores = services.get(rpcid);
+		// - invoke the method
+		   byte[] retur = kjores.invoke(mottatt);
+		// - send back message containing RPC reply
+		   connection.send(new Message(retur));
+		   
+		  
 		}
 	
 	}
