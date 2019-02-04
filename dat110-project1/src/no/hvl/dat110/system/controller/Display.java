@@ -16,5 +16,6 @@ public class Display extends RPCStub {
 		
 		RPCUtils.unmarshallVoid(tilbake);
 
+		
 	}
 }
